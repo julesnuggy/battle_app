@@ -1,0 +1,38 @@
+<style>
+
+  h1 {
+    text-align: center;
+    color: red;
+    text-shadow: 3px 2px grey;
+    font-size: 50px;
+  }
+
+  h2 {
+    text-align: center;
+    color: blue;
+    font-size: 35px;
+  }
+  .center {
+    text-align: center;
+  }
+
+  .half-width {
+    width: 50%;
+  }
+
+</style>
+
+<h1>
+  PREPARE FOR THE NEXT BATTLE!
+</h1>
+
+<% if @player1_name && @player2_name %>
+  <h2><h2><%= @player1_name %> VS <%= @player2_name %></h2>
+<% end %>
+
+<div  class="center">
+  <span>
+    <img src = 'https://image.ibb.co/b3j7Sn/FFDissidia_Cloud.png'>
+    <img src = 'https://image.ibb.co/d8j7Sn/FFDissidia_Squall.png'>
+  </span>
+</div>
