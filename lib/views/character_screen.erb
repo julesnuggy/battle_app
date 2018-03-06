@@ -30,9 +30,14 @@
   <h2><h2><%= @player1_name %> VS <%= @player2_name %></h2>
 <% end %>
 
-<div  class="center">
+<div  class='center'>
   <span>
     <img src = 'https://image.ibb.co/b3j7Sn/FFDissidia_Cloud.png'>
     <img src = 'https://image.ibb.co/d8j7Sn/FFDissidia_Squall.png'>
   </span>
+</div>
+
+<div class='center'>
+  <form action='/match' method='get'>
+  <input type='submit' value='Start Match'>
 </div>

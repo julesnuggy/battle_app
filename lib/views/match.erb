@@ -1,0 +1,55 @@
+<style>
+
+  h1 {
+    text-align: center;
+    color: red;
+    text-shadow: 3px 2px grey;
+    font-size: 50px;
+  }
+
+  h2 {
+    text-align: center;
+    color: blue;
+    font-size: 35px;
+  }
+  .center {
+    text-align: center;
+  }
+
+  .half-width {
+    width: 50%;
+  }
+
+  .message_box {
+    border-radius: 5px;
+    border-style: outset;
+  }
+
+</style>
+
+<html>
+    <h1> MATCH </h1>
+    <br/>
+
+    <div class="message_box">
+      <p id="battle_message_text"><%= @player1_name %>, your turn...</p>
+    </div>
+
+    <div class="message_box">
+      <p id="p1_avatar"><%= @player1_name %>: <%= @p1_curr_hp %>/<%= @p1_max_hp %></p>
+    </div>
+
+    <div class="message_box">
+      <p id="p2_avatar"><%= @player2_name %>: <%= @p2_curr_hp %>/<%= @p2_max_hp %></p>
+    </div>
+
+  <button type="button" id="p1_mag_scan" onclick="magicScan()">Scan</button>
+
+
+</html>
+
+<script>
+function magicScan() {
+  document.getElementById("battle_message_text").innerHTML = "<%= @player2_name %> HP: <%= @p2_hp %>";
+}
+</script>

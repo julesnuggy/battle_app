@@ -5,4 +5,5 @@ source 'https://rubygems.org' do
   gem 'capybara'
   gem 'selenium-webdriver'
   gem 'rspec'
+  gem 'sysrandom'
 end
