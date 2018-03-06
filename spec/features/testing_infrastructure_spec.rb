@@ -7,7 +7,7 @@ describe Battle do
 
   feature "homepage" do
     scenario "displays a title message upon loading" do
-      expect(page).to have_content 'WELCOME TO FINAL FANTASY VS'
+      expect(page).to have_content 'WELCOME TO FINAL FANTASY CLASH'
     end
 
     scenario "allows user to start a new game" do
@@ -18,8 +18,8 @@ describe Battle do
       visit '/start-new-game'
       fill_in 'player1_name', with: 'Jules Nuggy'
       fill_in 'player2_name', with: 'Zantetsuken'
-      click_button 'Submit Names'
-      expect(page).to have_content 'PREPARE FOR THE NEXT BATTLE! Jules Nuggy VS Zantetsuken'
+      click_button 'Continue'
+      expect(page).to have_content "PREPARE FOR THE NEXT BATTLE! \"Jules Nuggy\" VS \"Zantetsuken\""
     end
   end
 

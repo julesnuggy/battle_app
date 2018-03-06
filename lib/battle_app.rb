@@ -1,6 +1,7 @@
 require 'sinatra/base'
 
 class Battle < Sinatra::Base
+enable :sessions
 
   get '/' do
     erb(:start_screen)
@@ -11,8 +12,14 @@ class Battle < Sinatra::Base
   end
 
   post '/display-players' do
-    @player1_name = params[:player1_name]
-    @player2_name = params[:player2_name]
+    session[:player1_name] = params[:player1_name]
+    session[:player2_name] = params[:player2_name]
+    redirect to('/play'), 303
+  end
+
+  get '/play' do
+    @player1_name = session[:player1_name].inspect
+    @player2_name = session[:player2_name].inspect
     erb(:index)
   end
 
