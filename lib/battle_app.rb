@@ -31,12 +31,19 @@ set :session_secret, 'My Secret Session'
   end
 
   get '/match' do
-    @battle_message = "#{@player1_name}, your turn..."
     @player1_name = session[:player1_name]
     @player2_name = session[:player2_name]
     @p1_max_hp = @p2_max_hp = 100
-    @p1_curr_hp = @p2_curr_hp = 100
+    @p1_curr_hp = 100
+    @p2_curr_hp = 100
+    @battle_message = "#{@player1_name}, your turn..."
     erb(:match)
+  end
+
+  get '/p1_attack' do
+    @player1_name = session[:player1_name]
+    @player2_name = session[:player2_name]
+    erb(:p1_attack)
   end
 
   run! if app_file == $0

@@ -52,4 +52,15 @@ describe Battle do
     end
 =end
   end # feature checking player statuses
+
+  feature "taking actions" do
+    before do
+      sign_in_and_play
+    end
+    
+    scenario "returns a confirmation message when attacking" do
+      click_on 'p1_atk'
+      expect(page).to have_content('Jules Nuggy attacked Zantetsuken')
+    end
+  end # taking actions
 end
