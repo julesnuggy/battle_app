@@ -1,4 +1,4 @@
-require 'battle_app'
+require '~/Documents/Coding/MA/battle/battle_app.rb'
 
 describe Battle do
 
@@ -30,7 +30,7 @@ describe Battle do
     end
 
     scenario "tells player 1 it's their turn" do
-      expect(page).to have_content("MATCH Jules Nuggy, your turn...")
+      expect(page).to have_content("MATCH FIGHT")
     end
 
     scenario "shows us P1 HP" do
@@ -41,26 +41,34 @@ describe Battle do
       expect(page).to have_content("Zantetsuken: 100/100")
     end
 
-=begin
-    scenario "allows player 1 to view player 2 HP" do
-      #within("//section[@id='#p1_command_bar']") { click_button('p1_mag_scan') }
-      p find_by_id("battle_message_text").text
-      p click_on('p1_mag_scan')
-      #expect(page).to have_content("MATCH Zantetsuken HP: 100")
-      p find_by_id("battle_message_text").text
-      expect("//p#'battle_message_text'").to have_content("Zantetsuken HP: 100")
-    end
-=end
   end # feature checking player statuses
 
   feature "taking actions" do
     before do
       sign_in_and_play
     end
-    
+
+    scenario "shows HP when Scan is cast" do
+      click_on 'p1_mag_scan'
+      expect(page).to have_content('Scanned Zantetsuken - HP: 100/100')
+    end
+
     scenario "returns a confirmation message when attacking" do
       click_on 'p1_atk'
       expect(page).to have_content('Jules Nuggy attacked Zantetsuken')
+    end
+
+    scenario "reduces P2's HP when attacked" do
+      click_on 'p1_atk'
+      click_on 'Continue'
+      expect(page).to have_content('Zantetsuken: 90/100')
+    end
+
+    scenario "shows updated HP when Scan is cast after an attack" do
+      click_on 'p1_atk'
+      click_on 'Continue'
+      click_on 'p1_mag_scan'
+      expect(page).to have_content('Scanned Zantetsuken - HP: 90/100')
     end
   end # taking actions
 end

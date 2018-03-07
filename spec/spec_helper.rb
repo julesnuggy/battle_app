@@ -1,7 +1,7 @@
 ENV['RACK_ENV'] = 'test'
 
-require 'battle_app.rb'
- require 'features/web_helpers'
+require_relative '../battle_app.rb'
+require 'features/web_helpers'
 #### FIX BATLLE APP FILE REF
 
 require 'capybara'
