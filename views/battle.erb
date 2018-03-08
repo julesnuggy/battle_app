@@ -36,11 +36,11 @@
   </div>
 
   <div class="message_box">
-    <p id="p1_avatar"><%= @player1_name %>: <%= @p1_curr_hp %>/<%= @p1_max_hp %></p>
+    <p id="p1_avatar"><%= @command.player1.name %>: <%= @command.player1.curr_hp %>/<%= @command.player1.max_hp %></p>
   </div>
 
   <div class="message_box">
-    <p id="p2_avatar"><%= @player2_name %>: <%= @p2_curr_hp %>/<%= @p2_max_hp %></p>
+    <p id="p2_avatar"><%= @command.player2.name %>: <%= @command.player2.curr_hp %>/<%= @command.player2.max_hp %></p>
   </div>
 
   <form action="/p1_attack">
@@ -55,7 +55,7 @@
 
 <script>
 function magicScan() {
-  document.getElementById("battle_message_text").innerHTML = "<%= @player2_name %> HP: <%= @p2_curr_hp %> / <%= @p2_max_hp %>";
+  document.getElementById("battle_message_text").innerHTML = "<%= @command.player2.name %> HP: <%= @command.player2.curr_hp %> / <%= @command.player2.max_hp %>";
 }
 
 function atk() {

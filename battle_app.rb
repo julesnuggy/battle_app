@@ -27,27 +27,22 @@ set :session_secret, 'My Secret Session'
   end
 
   get '/character-screen' do
-    @player1_name = $command.player1.name
-    @player2_name = $command.player2.name
+    @command = $command
     erb(:character_screen)
   end
 
   get '/battle' do
-    @player1_name = $command.player1.name
-    @player2_name = $command.player2.name
-    @p1_max_hp = $command.player1.max_hp
-    @p2_max_hp = $command.player2.max_hp
-    @p1_curr_hp ||= $command.player1.curr_hp
-    @p2_curr_hp ||= $command.player2.curr_hp
+    @command = $command
     @battle_message = ($message ||= "FIGHT")
     erb(:battle)
   end
 
   get '/p1_attack' do
-    @player1_name = $command.player1.name
-    @player2_name = $command.player2.name
-    $message = ""
-    erb(:p1_attack)
+    @command = $command
+    $message = "#{@command.player1.name} attacked #{@command.player2.name}!"
+    #$message = "" ### Using $message instead
+    #erb(:p1_attack) ### Using $message instead
+    redirect '/calc_damage'
   end
 
   get '/p1_magic' do
@@ -55,10 +50,9 @@ set :session_secret, 'My Secret Session'
     redirect '/battle'
   end
 
-  post '/calc_damage' do
-    @player1 = $command.player1
-    @player2 = $command.player2
-    $command.attack(@player2)
+  get '/calc_damage' do
+    @command = $command
+    $command.attack(@command.player2)
     redirect '/battle'
   end
 
