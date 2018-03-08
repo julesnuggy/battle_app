@@ -79,6 +79,10 @@ describe Battle do
       sign_in_and_play
     end
 
+    scenario "shows when its P1's turn" do
+      expect(page).to have_xpath("//img[contains(@id,'p1_turn')]")
+    end
+
     scenario "allows P2 to go after P1" do
       click_on 'p1_atk'
       click_on 'Continue'
@@ -93,5 +97,13 @@ describe Battle do
       click_on 'Continue'
       expect(page).to have_content('Jules Nuggy, your turn!')
     end
+
+    scenario "shows when its P2's turn" do
+      click_on 'p1_atk'
+      click_on 'Continue'
+      click_on 'Continue'
+      expect(page).to have_xpath("//img[contains(@id,'p2_turn')]")
+    end
+
   end
 end

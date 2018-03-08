@@ -29,6 +29,11 @@ describe Command do
       expect(zan).to receive(:receive_damage)
       command.attack(zan)
     end
+  end
 
+  describe "controls turns" do
+    it "by changing player turns" do
+      expect { command.change_turn }.to change { command.turn }.from(jules).to(zan)
+    end
   end
 end

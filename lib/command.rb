@@ -14,7 +14,6 @@ class Command
 
   def change_turn
     @turn == player1 ? @turn = player2 : @turn = player1
-    "#{@turn}, your turn!"
   end
 
 end
