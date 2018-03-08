@@ -22,25 +22,19 @@
 
 </style>
 
-
 <body>
-  <h1>
-    PREPARE FOR THE NEXT BATTLE!
-  </h1>
-
-  <% if @command.player1.name && @command.player2.name %>
-    <h2><%= @command.player1.name %> VS <%= @command.player2.name %></h2>
-  <% end %>
+  <h2><%= @victor.name %> wins!</h2>
 
   <div  class='center'>
-    <span>
+    <% if @victor == @command.player1 %>
       <img src = 'https://image.ibb.co/b3j7Sn/FFDissidia_Cloud.png'>
+    <% else %>
       <img src = 'https://image.ibb.co/d8j7Sn/FFDissidia_Squall.png'>
-    </span>
+    <% end %>
   </div>
 
   <div class='center'>
-    <form action='/battle' method='get'>
-    <input type='submit' value='Start Match'>
+    <form action='/' method='get'>
+    <input type='submit' value='Restart Game'>
   </div>
 </body>

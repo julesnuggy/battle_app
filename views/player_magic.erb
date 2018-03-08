@@ -1,0 +1,16 @@
+<% if @command.turn == @command.player1 %>
+  <form action="/battle_2" name="form1" method="post">
+    <param name="battle_message" id="battle_message" value="<%= @command.player1.name %> attacked <%= @command.player2.name %>">
+  </form>
+<% end %>
+
+<% if @command.turn == @command.player2 %>
+  <form action="/battle_2"  name="form2" method="post">
+    <param name="message" value="<%= @command.player2.name %> attacked <%= @command.player1.name %>">
+  </form>
+<% end %>
+
+<script type="text/javascript">
+  document.form1.submit();
+  document.form2.submit();
+</script>

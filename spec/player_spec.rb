@@ -1,14 +1,14 @@
 require 'player.rb'
 
 describe Player do
-  subject(:player) { described_class.new ('Jules Nuggy') }
+  subject(:player) { described_class.new ('Renzokuken') }
   subject(:zan) { described_class.new('Zantetsuken') }
   let(:command_class) { double :command_class }
   let(:command) { double :command, target: zan }
 
     describe "provides details on the player" do
       it "knows the player's name" do
-        expect(player.name).to eq "Jules Nuggy"
+        expect(player.name).to eq "Renzokuken"
       end
 
       it "knows the player's max HP" do

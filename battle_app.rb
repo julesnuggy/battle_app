@@ -33,27 +33,95 @@ set :session_secret, 'My Secret Session'
 
   get '/battle' do
     @command = $command
-    @battle_message = ($message ||= "FIGHT")
+    @battle_message = $message
     erb(:battle)
+  end
+
+  post '/battle_2' do
+    @command = $command
+    @battle_message = params[:battle_message]
+    erb(:battle)
+  end
+
+
+
+  get '/p1_target' do
+    @command = $command
+    @command.set_target
+    erb(:player_target)
   end
 
   get '/p1_attack' do
     @command = $command
-    #$message = "#{@command.player1.name} attacked #{@command.player2.name}!"
-    erb(:p1_attack)
+    @move = :atk
+    erb(:player1_moves)
     #redirect '/calc_damage'
+  end
+
+  get '/p1_do_damage' do
+    @command = $command
+    $command.attack(@command.player2)
+    redirect '/victory' if @command.player2.loser == true
+    @command.change_turn
+    erb(:change_turn)
+  end
+
+  get '/p1_defend' do
+    @command = $command
+    @move = :def
+    erb(:player1_moves)
+  end
+
+  get '/p1_defend_msg' do
+    @command = $command
+    @command.change_turn
+    erb(:change_turn)
   end
 
   get '/p1_magic' do
     $message = Message.new.scan($command.player2)
     redirect '/battle'
+    #@command = $command ## Aim to get to this stage
+    #erb(:player_magic) ## Aim to get to this stage
   end
 
-  get '/calc_damage' do
+
+
+  get '/p2_attack' do
     @command = $command
-    $command.attack(@command.player2)
+    @move = :atk
+    erb(:player2_moves)
+  end
+
+  get '/p2_do_damage' do
+    @command = $command
+    $command.attack(@command.player1)
+    redirect '/victory' if @command.player1.loser == true
     @command.change_turn
     erb(:change_turn)
+  end
+
+  get '/p2_defend' do
+    @command = $command
+    @move = :def
+    erb(:player2_moves)
+  end
+
+  get '/p2_defend_msg' do
+    @command = $command
+    @command.change_turn
+    erb(:change_turn)
+  end
+
+  get '/p2_magic' do
+    $message = Message.new.scan($command.player1)
+    redirect '/battle'
+  end
+
+  get '/victory' do
+    @command = $command
+    @victor = @command.player1.loser ? @command.player2 : @command.player1
+    erb(:victory)
   end
 
   run! if app_file == $0

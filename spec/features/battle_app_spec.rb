@@ -17,10 +17,10 @@ describe Battle do
 
     scenario "allows users to complete a form to enter their names" do
       visit '/start-new-game'
-      fill_in 'player1_name', with: 'Jules Nuggy'
+      fill_in 'player1_name', with: 'Renzokuken'
       fill_in 'player2_name', with: 'Zantetsuken'
       click_button 'Continue'
-      expect(page).to have_content "PREPARE FOR THE NEXT BATTLE! Jules Nuggy VS Zantetsuken"
+      expect(page).to have_content "PREPARE FOR THE NEXT BATTLE! Renzokuken VS Zantetsuken"
     end
   end # feature setting up a game
 
@@ -29,12 +29,8 @@ describe Battle do
       sign_in_and_play
     end
 
-    scenario "tells player 1 it's their turn" do
-      expect(page).to have_content("MATCH FIGHT")
-    end
-
     scenario "shows us P1 HP" do
-      expect(page).to have_content("Jules Nuggy: 100/100")
+      expect(page).to have_content("Renzokuken: 100/100")
     end
 
     scenario "shows us P2 HP" do
@@ -48,30 +44,64 @@ describe Battle do
       sign_in_and_play
     end
 
-    scenario "shows HP when Scan is cast" do
-      click_on 'p1_mag_scan'
-      expect(page).to have_content('Scanned Zantetsuken - HP: 100/100')
+    context "as Player 1" do
+      scenario "shows HP when Scan is cast" do
+        click_on 'p1_mag_scan'
+        expect(page).to have_content('Scanned Zantetsuken - HP: 100/100')
+      end
+
+      scenario "returns a confirmation message when attacking" do
+        click_on 'p1_atk'
+        expect(page).to have_content('Renzokuken attacked Zantetsuken')
+      end
+
+      scenario "reduces P2's HP when attacked" do
+        click_on 'p1_atk'
+        click_on 'Continue'
+        click_on 'Continue'
+        expect(page).to have_content('Zantetsuken: 90/100')
+      end
+
+      scenario "shows updated HP when Scan is cast after an attack" do
+        click_on 'p1_atk'
+        click_on 'Continue'
+        click_on 'Continue'
+        click_on 'p1_mag_scan'
+        expect(page).to have_content('Scanned Zantetsuken - HP: 90/100')
+      end
     end
 
-    scenario "returns a confirmation message when attacking" do
-      click_on 'p1_atk'
-      expect(page).to have_content('Jules Nuggy attacked Zantetsuken')
+    context "as Player 2" do
+      before do
+        p1_completes_atk
+      end
+
+      scenario "shows HP when Scan is cast" do
+        click_on 'p2_mag_scan'
+        expect(page).to have_content('Scanned Renzokuken - HP: 100/100')
+      end
+
+      scenario "returns a confirmation message when attacking" do
+        click_on 'p2_atk'
+        expect(page).to have_content('Zantetsuken attacked Renzokuken')
+      end
+
+      scenario "reduces P1's HP when attacked" do
+        click_on 'p2_atk'
+        click_on 'Continue'
+        click_on 'Continue'
+        expect(page).to have_content('Renzokuken: 90/100')
+      end
+
+      scenario "shows updated HP when Scan is cast after an attack" do
+        click_on 'p2_atk'
+        click_on 'Continue'
+        click_on 'Continue'
+        click_on 'p2_mag_scan'
+        expect(page).to have_content('Scanned Renzokuken - HP: 90/100')
+      end
     end
 
-    scenario "reduces P2's HP when attacked" do
-      click_on 'p1_atk'
-      click_on 'Continue'
-      click_on 'Continue'
-      expect(page).to have_content('Zantetsuken: 90/100')
-    end
-
-    scenario "shows updated HP when Scan is cast after an attack" do
-      click_on 'p1_atk'
-      click_on 'Continue'
-      click_on 'Continue'
-      click_on 'p1_mag_scan'
-      expect(page).to have_content('Scanned Zantetsuken - HP: 90/100')
-    end
   end # taking actions
 
   feature "taking turns" do
@@ -90,20 +120,38 @@ describe Battle do
     end
 
     scenario "allows P1 to go after P2" do
-      click_on 'p1_atk'
+      p1_completes_atk
+      click_on 'p2_atk'
       click_on 'Continue'
-      click_on 'Continue'
-      click_on 'p1_atk'
-      click_on 'Continue'
-      expect(page).to have_content('Jules Nuggy, your turn!')
+      expect(page).to have_content('Renzokuken, your turn!')
     end
 
     scenario "shows when its P2's turn" do
+      p1_completes_atk
+      expect(page).to have_xpath("//img[contains(@id,'p2_turn')]")
+    end
+  end # taking turns
+
+  feature "winning and losing" do
+    before do
+      sign_in_and_play
+    end
+
+    scenario "the game ends when Player 2's HP reaches 0" do
+      9.times { p1_atk_p2_def }
       click_on 'p1_atk'
       click_on 'Continue'
+      expect(page).to have_content('Renzokuken wins!')
+    end
+
+    scenario "the game ends when Player 1's HP reaches 0" do
+      9.times { p2_atk_p1_def }
+      click_on 'p2_atk'
+      p page.body
       click_on 'Continue'
-      expect(page).to have_xpath("//img[contains(@id,'p2_turn')]")
+      expect(page).to have_content('Zantetsuken wins!')
     end
 
   end
+
 end

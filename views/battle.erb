@@ -22,6 +22,12 @@
     height: 30px;
   }
 
+  .img_center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
   .center {
     text-align: center;
   }
@@ -34,20 +40,30 @@
     margin-left: 15%
   }
 
+
+  .game_sapce {
+    height: 500px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .container{
+    display: flex;
+  }
+
   .p1_box {
     border-radius: 5px;
     border-style: outset;
-    width: 30%;
+    width: 40%;
     padding: 10px;
-    position: relative;
-    left: 67%;
+    margin-right: 10%;
   }
 
   .p2_box {
     border-radius: 5px;
     border-style: outset;
-    width: 30%;
-    padding: 20px;
+    padding: 10px;
+    flex-grow: 1;
   }
 
 </style>
@@ -60,49 +76,66 @@
 
     <div class="message_box">
       <p id="battle_message_text"><%= @battle_message %></p>
-        <% unless @battle_message == "FIGHT" || @battle_message.include?("your turn!") %>
-          <form action="/battle">
-            <input type="submit" id="msg_continue" value="OK">
-            <% @battle_message = "#{@command.player1.name}, your turn!" %>
-          </form>
-        <% end %>
     </div>
     <br />
 
-    <div class="p1_box">
-      <% if @command.turn == @command.player1 %>
-        <img class="icon" id="p1_turn" src="https://image.ibb.co/d3mKA7/ffvii_buster_sword.png">
-      <% end %>
+    <div class="game_space">
+      <img class="img_center" src="https://image.ibb.co/i8fwq7/cloud_vs_squall.jpg">
+    </div>
 
-      <p id="p1_avatar"><%= @command.player1.name %>: <%= @command.player1.curr_hp %>/<%= @command.player1.max_hp %></p>
+    <div class="container">
+      <div class="p1_box">
+        <% if @command.turn == @command.player1 %>
+          <img class="icon" id="p1_turn" src="https://image.ibb.co/d3mKA7/ffvii_buster_sword.png">
+        <% end %>
+
+        <p id="p1_avatar"><%= @command.player1.name %>: <%= @command.player1.curr_hp %>/<%= @command.player1.max_hp %></p>
+
+        <form action="/p1_target">
+          <input type="submit" id="p1_tgt_slf" value="Target Self">
+          <input type="submit" id="p1_tgt_opp" value="Target Opponent">
+        </form>
 
         <form action="/p1_attack">
           <input type="submit" id="p1_atk" value="Attack">
-          <input type="submit" id="defend" value="Defend">
+        </form>
+
+        <form action="/p1_defend">
+          <input type="submit" id="p1_def" value="Defend">
         </form>
 
         <form action="/p1_magic">
           <input type="submit" id="p1_mag_scan" value="Scan">
         </form>
 
-    </div>
-    <br />
+      </div>
+      <br />
 
-    <div class="p2_box">
-      <% if @command.turn == @command.player2 %>
-        <img class="icon" id="p2_turn" src="https://image.ibb.co/nQGKA7/ffviii_gunblade.png">
-      <% end %>
+      <div class="p2_box">
+        <% if @command.turn == @command.player2 %>
+          <img class="icon" id="p2_turn" src="https://image.ibb.co/nQGKA7/ffviii_gunblade.png">
+        <% end %>
 
-      <p id="p2_avatar"><%= @command.player2.name %>: <%= @command.player2.curr_hp %>/<%= @command.player2.max_hp %></p>
+        <p id="p2_avatar"><%= @command.player2.name %>: <%= @command.player2.curr_hp %>/<%= @command.player2.max_hp %></p>
+
+        <form action="/p2_target">
+          <input type="submit" id="p2_tgt_slf" value="Target Self">
+          <input type="submit" id="p2_tgt_opp" value="Target Opponent">
+        </form>
 
         <form action="/p2_attack">
-          <input type="submit" id="p2_atk" value="Attack">
+            <input type="submit" id="p2_atk" value="Attack">
+          </form>
+
+        <form action="/p2_defend">
+          <input type="submit" id="p2_def" value="Defend">
         </form>
 
         <form action="/p2_magic">
           <input type="submit" id="p2_mag_scan" value="Scan">
           <input type="submit" id="blk_mag" value="Black Magic">
         </form>
+      </div>
     </div>
 
   </body>

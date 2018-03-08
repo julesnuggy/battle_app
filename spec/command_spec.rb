@@ -1,17 +1,17 @@
 require 'command.rb'
 
 describe Command do
-  subject(:command) { described_class.new(jules, zan) }
-  let(:jules) { double :jules, name: 'Jules', max_hp: 100, curr_hp: 100 }
-  let(:zan) { double :jules, name: 'Zan', max_hp: 100, curr_hp: 100 }
+  subject(:command) { described_class.new(ren, zan) }
+  let(:ren) { double :ren, name: 'Renzokuken', max_hp: 100, curr_hp: 100 }
+  let(:zan) { double :ren, name: 'Zantetsuken', max_hp: 100, curr_hp: 100 }
 
   describe "accepts two player instances" do
     it "and knows who Player 1 is" do
-      expect(command.player1.name).to eq 'Jules'
+      expect(command.player1.name).to eq 'Renzokuken'
     end
 
     it "and knows who Player 2 is" do
-      expect(command.player2.name).to eq 'Zan'
+      expect(command.player2.name).to eq 'Zantetsuken'
     end
 
     it "and knows the player's max HP" do
@@ -33,7 +33,7 @@ describe Command do
 
   describe "controls turns" do
     it "by changing player turns" do
-      expect { command.change_turn }.to change { command.turn }.from(jules).to(zan)
+      expect { command.change_turn }.to change { command.turn }.from(ren).to(zan)
     end
   end
 end

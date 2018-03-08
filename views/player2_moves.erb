@@ -1,0 +1,15 @@
+<body>
+  <% if @move == :atk %>
+    <p><%= @command.player2.name %> attacked <%= @command.player1.name %></p>
+    <form action="/p2_do_damage">
+      <input type="submit" value="Continue">
+    </form>
+
+  <% elsif @move == :def %>
+    <p><%= @command.player2.name %> defended</p>
+    <form action="/p2_defend_msg">
+      <input type="submit" value="Continue">
+    </form>
+
+    <% end %>
+</body>
