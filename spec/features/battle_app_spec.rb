@@ -60,13 +60,15 @@ describe Battle do
 
     scenario "reduces P2's HP when attacked" do
       click_on 'p1_atk'
-      #click_on 'Continue' ### Exists in p1_attack.erb but not when using $message
+      click_on 'Continue'
+      click_on 'Continue'
       expect(page).to have_content('Zantetsuken: 90/100')
     end
 
     scenario "shows updated HP when Scan is cast after an attack" do
       click_on 'p1_atk'
-      #click_on 'Continue' ### Exists in p1_attack.erb but not when using $message
+      click_on 'Continue'
+      click_on 'Continue'
       click_on 'p1_mag_scan'
       expect(page).to have_content('Scanned Zantetsuken - HP: 90/100')
     end
@@ -78,7 +80,18 @@ describe Battle do
     end
 
     scenario "allows P2 to go after P1" do
+      click_on 'p1_atk'
+      click_on 'Continue'
+      expect(page).to have_content('Zantetsuken, your turn!')
+    end
 
+    scenario "allows P1 to go after P2" do
+      click_on 'p1_atk'
+      click_on 'Continue'
+      click_on 'Continue'
+      click_on 'p1_atk'
+      click_on 'Continue'
+      expect(page).to have_content('Jules Nuggy, your turn!')
     end
   end
 end

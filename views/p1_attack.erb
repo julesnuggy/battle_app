@@ -1,5 +1,4 @@
-# Not needed if using $messages --> BAD PRACTICE
-<%= @command.player1.name %> attacked <%= @command.player2.name %>
-<form action="/calc_damage" method="post">
+<p><%= @command.player1.name %> attacked <%= @command.player2.name %></p>
+<form action="/calc_damage">
   <input type="submit" value="Continue">
 </form>

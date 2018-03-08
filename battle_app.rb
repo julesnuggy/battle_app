@@ -39,10 +39,9 @@ set :session_secret, 'My Secret Session'
 
   get '/p1_attack' do
     @command = $command
-    $message = "#{@command.player1.name} attacked #{@command.player2.name}!"
-    #$message = "" ### Using $message instead
-    #erb(:p1_attack) ### Using $message instead
-    redirect '/calc_damage'
+    #$message = "#{@command.player1.name} attacked #{@command.player2.name}!"
+    erb(:p1_attack)
+    #redirect '/calc_damage'
   end
 
   get '/p1_magic' do
@@ -53,7 +52,8 @@ set :session_secret, 'My Secret Session'
   get '/calc_damage' do
     @command = $command
     $command.attack(@command.player2)
-    redirect '/battle'
+    @command.change_turn
+    erb(:change_turn)
   end
 
   run! if app_file == $0

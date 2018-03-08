@@ -25,6 +25,20 @@
     border-style: outset;
   }
 
+  .p1_box {
+    border-radius: 5px;
+    border-style: outset;
+    width: 30%;
+    position: relative;
+    left: 70%
+  }
+
+  .p2_box {
+    border-radius: 5px;
+    border-style: outset;
+    width: 30%;
+
+  }
 </style>
 
 <html>
@@ -33,13 +47,19 @@
 
   <div class="message_box">
     <p id="battle_message_text"><%= @battle_message %></p>
+      <% unless @battle_message == "FIGHT" || @battle_message.include?("your turn!") %>
+        <form action="/battle">
+          <input type="submit" id="msg_continue" value="OK">
+          <% @battle_message = "#{@command.player1.name}, your turn!" %>
+        </form>
+      <% end %>
   </div>
 
-  <div class="message_box">
+  <div class="p1_box">
     <p id="p1_avatar"><%= @command.player1.name %>: <%= @command.player1.curr_hp %>/<%= @command.player1.max_hp %></p>
   </div>
 
-  <div class="message_box">
+  <div class="p2_box">
     <p id="p2_avatar"><%= @command.player2.name %>: <%= @command.player2.curr_hp %>/<%= @command.player2.max_hp %></p>
   </div>
 
