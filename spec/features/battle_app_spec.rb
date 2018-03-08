@@ -147,7 +147,6 @@ describe Battle do
     scenario "the game ends when Player 1's HP reaches 0" do
       9.times { p2_atk_p1_def }
       click_on 'p2_atk'
-      p page.body
       click_on 'Continue'
       expect(page).to have_content('Zantetsuken wins!')
     end
