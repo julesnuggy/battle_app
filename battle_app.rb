@@ -96,7 +96,7 @@ set :session_secret, 'My Secret Session'
   end
 
   get '/use_special_heal' do
-    @game.heal(@game.target)
+    @game.heal(@game.turn)
     case params[:spc_heal]
       when "wmg_cure"
         @battle_message = @game.message(:cure, @game.turn, @game.target)

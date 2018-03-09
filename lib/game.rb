@@ -57,14 +57,14 @@ class Game
       when :scan
         @message = "#{actor.name} cast #{action.upcase}... #{target.name} - HP: #{target.curr_hp}/#{target.max_hp}"
       when :cure
-        @message = "#{actor.name} cast #{action.upcase}... healed #{target.name} HP by #{target.heal}"
+        @message = "#{actor.name} cast #{action.upcase}... healed #{actor.name} HP by #{actor.heal}"
       when :fire
         @message = "#{actor.name} cast #{action.upcase} on #{target.name} for #{target.damage} damage"
       when :ice
         @message = "#{actor.name} cast #{action.upcase} on #{target.name} for #{target.damage} damage"
 
       when :recover
-        @message = "#{actor.name} used #{action.upcase}... healed #{target.name} HP by #{target.heal}"
+        @message = "#{actor.name} used #{action.upcase}... healed #{actor.name} HP by #{actor.heal}"
       when :true_thrust
         @message = "#{actor.name} used #{action.upcase} on #{target.name} for #{target.damage} damage"
       when :jump
