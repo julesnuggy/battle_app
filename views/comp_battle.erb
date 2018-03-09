@@ -33,11 +33,10 @@
   }
 
   .img_center {
-    display: inline-block;
+    display: block;
     margin-left: auto;
     margin-right: auto;
-    height: 500px;
-    padding: 10px;
+    height: 300px;
   }
 
   .center {
@@ -57,23 +56,20 @@
     margin-left: 15%
   }
 
-  .game_space {
+  .game_sapce {
     height: 500px;
     width: 100%;
     text-align: center;
-    display: inline-block;
   }
 
   .container{
     display: flex;
-    margin-top: 50px;
   }
 
   .p1_box {
     border-radius: 5px;
     border-style: outset;
-    background-color: white;
-    width: 37.5%;
+    width: 40%;
     padding: 10px;
     margin-right: 10%;
   }
@@ -81,9 +77,7 @@
   .p2_box {
     border-radius: 5px;
     border-style: outset;
-    background-color: white;
     padding: 10px;
-    margin-left: 10%;
     flex-grow: 1;
   }
 
@@ -128,13 +122,13 @@
     color: white;
   }
 
-  .purple {
-    border-color: #2b1b5c;
-    color: #21255e;
+  .orange {
+    border-color: #ff9800;
+    color: orange;
   }
 
-  .purple:hover {
-    background: #2b1b5c;
+  .orange:hover {
+    background: #ff9800;
     color: white;
   }
 
@@ -199,10 +193,14 @@
             <% end %>
           </td>
           <td class="right_align lr_padding">
-            <% unless @battle_message == "FIGHT!" || @battle_message.include?("turn") || @battle_message.include?("Targetting") %>
+            <% if @battle_message != "FIGHT!" || !@battle_message.include?("turn") || !@battle_message.include?("Targetting") || !@battle_message.include?("Computer, your turn!")%>
               <form action="/finish_turn">
                 <input type="submit" id="message_ok" value="OK" autofocus>
               </form>
+            <% elsif @battle_message == ("COMP: Computer, your turn!") %>
+            <form action="/finish_turn">
+              <input type="submit" id="message_ok" value="Comp Action" onclick="randCompAction()" autofocus>
+            </form>
             <% end %>
           </td>
         </tr>
@@ -212,8 +210,7 @@
     <br />
 
     <div class="game_space">
-        <img class="img_center" src = 'https://image.ibb.co/mz5hyS/FFXIV_Black_Mage.png'>
-        <img class="img_center" src = 'https://image.ibb.co/kZcvJS/Dragoon_Artwork_XIV.png'>
+      <img class="img_center" src="https://image.ibb.co/i8fwq7/cloud_vs_squall.jpg">
     </div>
 
     <div class="container">
@@ -266,25 +263,10 @@
 
             <tr>
               <td>
-                <form action="/use_special_buff">
-                  <button class="btn green" id="p1_wmg_scan" name="spc_buff" value="wmg_scan">Scan</button>
+                <form action="/cast_magic">
+                  <button class="btn green" id="p1_mag_scan">Scan</button>
                 </form>
               </td>
-              <td>
-                <form action="/use_special_heal">
-                  <button class="btn green" id="p1_wmg_cure" name="spc_heal" value="wmg_cure">Cure</button>
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <form action="/use_special_atk">
-                <td>
-                  <button class="btn purple" id="p1_bmg_fire" name="spc_atk" value="bmg_fire">Fire</button>
-                </td>
-                <td>
-                  <button class="btn purple" id="p1_bmg_ice" name="spc_atk" value="bmg_ice">Ice</button>
-                </td>
-              </form>
             </tr>
           </table>
         <% else %>
@@ -310,18 +292,6 @@
             <tr>
               <td>
                 <button class="btn grey">Scan</button>
-              </td>
-              <td>
-                <button class="btn grey">Heal</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <button class="btn grey">Fire</button>
-              </td>
-              <td>
-                <button class="btn grey">Ice</button>
               </td>
             </tr>
           </table>
@@ -350,7 +320,7 @@
         </table>
 
         <% if @game.turn == @game.player2 %>
-          <table>
+          <table id="comp_buttons">
             <tr>
               <td>
                 <form action="/target_self">
@@ -379,25 +349,10 @@
 
             <tr>
               <td>
-                <form action="/use_special_buff">
-                  <button class="btn green" id="p2_wmg_scan" name="spc_buff" value="wmg_scan">Scan</button>
+                <form action="/cast_magic">
+                  <button class="btn green" id="p2_mag_scan">Scan</button>
                 </form>
               </td>
-              <td>
-                <form action="/use_special_heal">
-                  <button class="btn green" id="p2_teq_recov" name="spc_heal" value="teq_recov">Recover</button>
-                </form>
-              </td>
-            </tr>
-            <tr>
-              <form action="/use_special_atk">
-                <td>
-                  <button class="btn purple" id="p2_teq_tr_thr" name="spc_atk" value="teq_tr_thr">True Thrust</button>
-                </td>
-                <td>
-                    <button class="btn purple" id="p2_teq_jump" name="spc_atk" value="teq_jump">Jump</button>
-                </td>
-              </form>
             </tr>
           </table>
         <% else %>
@@ -424,18 +379,6 @@
               <td>
                 <button class="btn grey">Scan</button>
               </td>
-              <td>
-                <button class="btn grey">Recover</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <button class="btn grey">True Thrust</button>
-              </td>
-              <td>
-                <button class="btn grey">Jump</button>
-              </td>
             </tr>
           </table>
         <% end %>
@@ -448,4 +391,15 @@
     </object>
   </body>
 
+
 </html>
+
+<script>
+
+function randCompAction() {
+  var buttons = new Array("p2_atk", "p2_def", "p2_mag_scan");
+  var compAction = buttons[Math.floor(Math.random() * myarray.length)];
+  document.getElementById(compAction).click();
+}
+
+</script>

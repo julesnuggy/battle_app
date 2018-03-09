@@ -50,8 +50,8 @@ describe Battle do
 
     context "as Player 1" do
       scenario "shows HP when Scan is cast" do
-        click_on 'p1_mag_scan'
-        expect(page).to have_content('Renzokuken cast scan... Zantetsuken - HP: 100/100')
+        click_on 'p1_wmg_scan'
+        expect(page).to have_content('Renzokuken cast SCAN... Zantetsuken - HP: 100/100')
       end
 
       scenario "returns a confirmation message when attacking" do
@@ -61,9 +61,9 @@ describe Battle do
 
       scenario "shows updated (reduced) HP when Scan is cast after an attack" do
         p1_completes_atk
-        p2_completes_atk
-        click_on 'p1_mag_scan'
-        expect(page).to have_content('Renzokuken cast scan... Zantetsuken - HP: 90/100')
+        p2_completes_def
+        click_on 'p1_wmg_scan'
+        expect(page).not_to have_content('Renzokuken cast SCAN... Zantetsuken - HP: 100/100')
       end
 
       scenario "can defend against an attack" do
@@ -81,6 +81,20 @@ describe Battle do
         expect(page).to have_content('Targetting Zantetsuken')
       end
 
+      scenario "can cast heal" do
+        click_on 'p1_wmg_cure'
+        expect(page).to have_content('Renzokuken cast CURE')
+      end
+
+      scenario "can cast fire magic" do
+        click_on 'p1_bmg_fire'
+        expect(page).to have_content('Renzokuken cast FIRE')
+      end
+
+      scenario "can cast ice magic" do
+        click_on 'p1_bmg_ice'
+        expect(page).to have_content('Renzokuken cast ICE')
+      end
     end
 
     context "as Player 2" do
@@ -89,8 +103,8 @@ describe Battle do
       end
 
       scenario "shows HP when Scan is cast" do
-        click_on 'p2_mag_scan'
-        expect(page).to have_content('Zantetsuken cast scan... Renzokuken - HP: 100/100')
+        click_on 'p2_wmg_scan'
+        expect(page).to have_content('Zantetsuken cast SCAN... Renzokuken - HP: 100/100')
       end
 
       scenario "returns a confirmation message when attacking" do
@@ -98,16 +112,11 @@ describe Battle do
         expect(page).to have_content('Zantetsuken attacked Renzokuken')
       end
 
-      scenario "reduces P1's HP when attacked" do
-        p2_completes_atk
-        expect(page).to have_content('Renzokuken', '90/100')
-      end
-
-      scenario "shows updated HP when Scan is cast after an attack" do
+      scenario "shows updated (reduced) HP when Scan is cast after an attack" do
         p2_completes_atk
         p1_completes_def
-        click_on 'p2_mag_scan'
-        expect(page).to have_content('Zantetsuken cast scan... Renzokuken - HP: 90/100')
+        click_on 'p2_wmg_scan'
+        expect(page).not_to have_content('Zantetsuken cast SCAN... Renzokuken - HP: 100/100')
       end
 
       scenario "can defend against an attack" do
@@ -123,6 +132,21 @@ describe Battle do
       scenario "can target opponent" do
         click_on 'p2_tgt_opp'
         expect(page).to have_content('Targetting Renzokuken')
+      end
+
+      scenario "can use recover" do
+        click_on 'p2_teq_recov'
+        expect(page).to have_content('Zantetsuken used RECOVER')
+      end
+
+      scenario "can use true thrust" do
+        click_on 'p2_teq_tr_thr'
+        expect(page).to have_content('Zantetsuken used TRUE_THRUST')
+      end
+
+      scenario "can use jump" do
+        click_on 'p2_teq_jump'
+        expect(page).to have_content('Zantetsuken used JUMP')
       end
     end
 
@@ -174,6 +198,19 @@ describe Battle do
       expect(page).to have_content('Zantetsuken wins!')
     end
 
-  end
+  end # winning and losing
+
+  feature "playing against COMP" do
+    before do
+      play_vs_comp
+    end
+
+    scenario "the COMP takes its own actions" do
+      click_on 'p1_atk'
+      click_on 'message_ok'
+      expect(page).to have_content('COMP: ')
+    end
+
+  end # playing against COMP
 
 end

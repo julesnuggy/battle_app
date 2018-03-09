@@ -12,6 +12,12 @@
     color: blue;
     font-size: 35px;
   }
+
+  img {
+    height: 60%;
+    padding: 10px;
+  }
+
   .center {
     text-align: center;
   }
@@ -20,6 +26,10 @@
     width: 50%;
   }
 
+  .flip {
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
 </style>
 
 
@@ -34,13 +44,20 @@
 
   <div  class='center'>
     <span>
-      <img src = 'https://image.ibb.co/b3j7Sn/FFDissidia_Cloud.png'>
-      <img src = 'https://image.ibb.co/d8j7Sn/FFDissidia_Squall.png'>
+      <img src = 'https://image.ibb.co/mz5hyS/FFXIV_Black_Mage.png'>
+      <img src = 'https://image.ibb.co/kZcvJS/Dragoon_Artwork_XIV.png'>
     </span>
   </div>
 
   <div class='center'>
-    <form action='/battle' method='get'>
-    <input type='submit' value='Start Match'>
+    <% if @game.player2.name == "Computer" %>
+      <form action='/comp_battle' method='get'>
+        <input type='submit' value='Start Match'>
+      </form>
+    <% else %>
+      <form action='/battle' method='get'>
+        <input type='submit' value='Start Match'>
+      </form>
+    <% end %>
   </div>
 </body>
