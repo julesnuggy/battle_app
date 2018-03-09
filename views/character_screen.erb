@@ -27,9 +27,9 @@
   <h1>
     PREPARE FOR THE NEXT BATTLE!
   </h1>
-  
-  <% if @command.player1.name && @command.player2.name %>
-    <h2><%= @command.player1.name %> VS <%= @command.player2.name %></h2>
+
+  <% if @game.player1.name && @game.player2.name %>
+    <h2><%= @game.player1.name %> VS <%= @game.player2.name %></h2>
   <% end %>
 
   <div  class='center'>

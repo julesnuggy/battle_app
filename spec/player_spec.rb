@@ -3,8 +3,8 @@ require 'player.rb'
 describe Player do
   subject(:player) { described_class.new ('Renzokuken') }
   subject(:zan) { described_class.new('Zantetsuken') }
-  let(:command_class) { double :command_class }
-  let(:command) { double :command, target: zan }
+  let(:game_class) { double :game_class }
+  let(:game) { double :game, target: zan }
 
     describe "provides details on the player" do
       it "knows the player's name" do

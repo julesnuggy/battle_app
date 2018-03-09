@@ -1,8 +1,7 @@
 require 'sinatra/base'
 require 'sysrandom/securerandom'
 require_relative './lib/player.rb'
-require_relative './lib/command.rb'
-require_relative './lib/message.rb'
+require_relative './lib/game.rb'
 
 class Battle < Sinatra::Base
 enable :sessions
@@ -14,7 +13,7 @@ set :session_secret, 'My Secret Session'
 # http://sinatrarb.com/intro.html#Using%20Sessions
 
   before do
-    @command = Command.return_instance
+    @game = Game.return_instance
   end
 
   get '/' do
@@ -28,7 +27,7 @@ set :session_secret, 'My Secret Session'
   post '/store-names' do
     player1 = Player.new(params[:player1_name])
     player2 = Player.new(params[:player2_name])
-    @command = Command.create_command(player1, player2)
+    @game = Game.create_game(player1, player2)
     redirect '/character-screen'
   end
 
@@ -37,74 +36,47 @@ set :session_secret, 'My Secret Session'
   end
 
   get '/battle' do
-    @battle_message = $message
+    @battle_message = @game.message
     erb(:battle)
   end
 
-  get '/p1_target' do
-    @command.set_target
-    erb(:player_target)
+  get '/target_self' do
+    @game.set_target(@game.turn)
+    @battle_message = @game.message(:target, @game.turn, @game.turn)
+    erb(:battle)
   end
 
-  get '/p1_attack' do
-    @move = :atk
-    erb(:player1_moves)
-    #redirect '/calc_damage'
+  get '/target_opponent' do
+    @game.set_target(@game.opponent)
+    @battle_message = @game.message(:target, @game.turn, @game.opponent)
+    erb(:battle)
   end
 
-  get '/p1_do_damage' do
-    @command.attack(@command.player2)
-    redirect '/victory' if @command.player2.loser == true
-    @command.change_turn
-    erb(:change_turn)
+  get '/phys_attack' do
+    @battle_message = @game.message(:attack, @game.turn, @game.target)
+    @game.attack(@game.target)
+    redirect '/victory' if @game.player1.loser == true || @game.player2.loser == true
+    erb(:battle)
   end
 
-  get '/p1_defend' do
-    @move = :def
-    erb(:player1_moves)
+  get '/defend_self' do
+    @battle_message = @game.message(:defend, @game.turn)
+    erb(:battle)
   end
 
-  get '/p1_defend_msg' do
-    @command.change_turn
-    erb(:change_turn)
+  get '/finish_turn' do
+    @game.change_turn
+    @battle_message = @game.message(:turn, @game.turn)
+    erb(:battle)
   end
 
-  get '/p1_magic' do
-    $message = Message.new.scan(@command.player2)
-    redirect '/battle'
-  end
-
-
-
-  get '/p2_attack' do
-    @move = :atk
-    erb(:player2_moves)
-  end
-
-  get '/p2_do_damage' do
-    @command.attack(@command.player1)
-    redirect '/victory' if @command.player1.loser == true
-    @command.change_turn
-    erb(:change_turn)
-  end
-
-  get '/p2_defend' do
-    @move = :def
-    erb(:player2_moves)
-  end
-
-  get '/p2_defend_msg' do
-    @command.change_turn
-    erb(:change_turn)
-  end
-
-  get '/p2_magic' do
-    $message = Message.new.scan(@command.player1)
-    redirect '/battle'
+  get '/cast_magic' do
+    @battle_message = @game.message(:scan, @game.turn, @game.target)
+    erb(:battle)
   end
 
   get '/victory' do
-    @victor = @command.player1.loser ? @command.player2 : @command.player1
+    @victor = @game.player1.loser ? @game.player2 : @game.player1
     erb(:victory)
   end
 

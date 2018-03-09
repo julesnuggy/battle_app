@@ -17,29 +17,44 @@
     margin: 10px;
   }
 
+  td, th {
+    text-align: left;
+  }
+
+  form {
+    padding: 0px;
+    margin: 0px;
+  }
+
   .icon {
     width: 30px;
     height: 30px;
+    display: inline;
   }
 
   .img_center {
     display: block;
     margin-left: auto;
     margin-right: auto;
+    height: 300px;
   }
 
   .center {
     text-align: center;
   }
 
+  .right_align {
+    text-align: right;
+  }
+
   .message_box {
     border-radius: 5px;
     border-style: outset;
     width: 70%;
+    padding: 10px;
     position: relative;
     margin-left: 15%
   }
-
 
   .game_sapce {
     height: 500px;
@@ -66,16 +81,123 @@
     flex-grow: 1;
   }
 
+  .lr_spacing {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .icon_spacing {
+    padding-left: 10px;
+    padding-right: 10px;
+    width: 30px;
+  }
+
+  .btn {
+    border-radius: 5px;
+    border: 2px solid black;
+    background-color: white;
+    color: black;
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+
+  .green {
+    border-color: #4CAF50;
+    color: green;
+  }
+
+  .green:hover {
+    background-color: #4CAF50;
+    color: white;
+  }
+
+  .blue {
+    border-color: #2196F3;
+    color: dodgerblue
+  }
+
+  .blue:hover {
+    background: #2196F3;
+    color: white;
+  }
+
+  .orange {
+    border-color: #ff9800;
+    color: orange;
+  }
+
+  .orange:hover {
+    background: #ff9800;
+    color: white;
+  }
+
+  .red {
+    border-color: #f44336;
+    color: red
+  }
+
+  .red:hover {
+    background: #f44336;
+    color: white;
+  }
+
+  .grey {
+    border-color: #e7e7e7;
+    color: black;
+  }
+
+  .grey:hover {
+    background: #e7e7e7;
+  }
+
+  .loader {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid red;
+    width: 15px;
+    height: 15px;
+    padding: 2.5px;
+    -webkit-animation: spin 2s linear infinite; /* Safari */
+    animation: spin 2s linear infinite;
+  }
+
+  /* Safari */
+  @-webkit-keyframes spin {
+    0% { -webkit-transform: rotate(0deg); }
+    100% { -webkit-transform: rotate(360deg); }
+  }
+
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+
+
 </style>
 
 <html>
   <body>
 
     <h1> MATCH </h1>
-    <br/>
+
 
     <div class="message_box">
-      <p id="battle_message_text"><%= @battle_message %></p>
+      <table style="width:100%">
+        <tr>
+          <td class="lr_padding">
+            <p id="battle_message_text"><%= @battle_message %></p>
+          </td>
+          <td class="right_align lr_padding">
+            <% unless @battle_message == "FIGHT!" || @battle_message.include?("turn") || @battle_message.include?("Targetting") %>
+              <form action="/finish_turn">
+                <input type="submit" id="message_ok" value="OK" autofocus>
+              </form>
+            <% end %>
+          </td>
+        </tr>
+      </table>
+
     </div>
     <br />
 
@@ -85,68 +207,176 @@
 
     <div class="container">
       <div class="p1_box">
-        <% if @command.turn == @command.player1 %>
-          <img class="icon" id="p1_turn" src="https://image.ibb.co/d3mKA7/ffvii_buster_sword.png">
+        <table>
+          <tr>
+            <th class="icon_spacing">
+              <% if @game.turn == @game.player1 %>
+                <img class="icon" id="p1_turn" src="https://image.ibb.co/d3mKA7/ffvii_buster_sword.png">
+              <% else %>
+                <div class="loader"></div>
+              <% end %>
+            </td>
+            <th class="lr_spacing">
+              <p><%= @game.player1.name %></p>
+            </td>
+            <th class="lr_spacing">
+              <p><%= @game.player1.curr_hp %>/<%= @game.player1.max_hp %></p>
+            </td>
+          </tr>
+        </table>
+
+        <% if @game.turn == @game.player1 %>
+          <table>
+            <tr>
+              <td>
+                <form action="/target_self">
+                  <button class="btn blue" id="p1_tgt_self">Target Self</button>
+                </form>
+              </td>
+              <td>
+                <form action="/target_opponent">
+                  <button class="btn blue" id="p1_tgt_opp">Target Opponent</button>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="/phys_attack">
+                  <button class="btn red" id="p1_atk">Attack</button>
+                </form>
+              </td>
+              <td>
+                <form action="/defend_self">
+                  <button class="btn red" id="p1_def">Defend</button>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="/cast_magic">
+                  <button class="btn green" id="p1_mag_scan">Scan</button>
+                </form>
+              </td>
+            </tr>
+          </table>
+        <% else %>
+          <table>
+            <tr>
+              <td>
+                <button class="btn grey">Target Self</button>
+              </td>
+              <td>
+                <button class="btn grey">Target Opponent</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn grey">Attack</button>
+              </td>
+              <td>
+                <button class="btn grey">Defend</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn grey">Scan</button>
+              </td>
+            </tr>
+          </table>
         <% end %>
-
-        <p id="p1_avatar"><%= @command.player1.name %>: <%= @command.player1.curr_hp %>/<%= @command.player1.max_hp %></p>
-
-        <form action="/p1_target">
-          <input type="submit" id="p1_tgt_slf" value="Target Self">
-          <input type="submit" id="p1_tgt_opp" value="Target Opponent">
-        </form>
-
-        <form action="/p1_attack">
-          <input type="submit" id="p1_atk" value="Attack">
-        </form>
-
-        <form action="/p1_defend">
-          <input type="submit" id="p1_def" value="Defend">
-        </form>
-
-        <form action="/p1_magic">
-          <input type="submit" id="p1_mag_scan" value="Scan">
-        </form>
 
       </div>
       <br />
 
       <div class="p2_box">
-        <% if @command.turn == @command.player2 %>
-          <img class="icon" id="p2_turn" src="https://image.ibb.co/nQGKA7/ffviii_gunblade.png">
+        <table>
+          <tr>
+            <th class="icon_spacing">
+              <% if @game.turn == @game.player2 %>
+                <img class="icon" id="p2_turn" src="https://image.ibb.co/nQGKA7/ffviii_gunblade.png">
+              <% else %>
+                <div class="loader"></div>
+              <% end %>
+            </td>
+            <th class="lr_spacing">
+              <p><%= @game.player2.name %></p>
+            </td>
+            <th class="lr_spacing">
+              <p><%= @game.player2.curr_hp %>/<%= @game.player2.max_hp %></p>
+            </td>
+          </tr>
+        </table>
+
+        <% if @game.turn == @game.player2 %>
+          <table>
+            <tr>
+              <td>
+                <form action="/target_self">
+                  <button class="btn blue" id="p2_tgt_self">Target Self</button>
+                </form>
+              </td>
+              <td>
+                <form action="/target_opponent">
+                  <button class="btn blue" id="p2_tgt_opp">Target Opponent</button>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="/phys_attack">
+                  <button class="btn red" id="p2_atk">Attack</button>
+                </form>
+              </td>
+              <td>
+                <form action="/defend_self">
+                  <button class="btn red" id="p2_def">Defend</button>
+                </form>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <form action="/cast_magic">
+                  <button class="btn green" id="p2_mag_scan">Scan</button>
+                </form>
+              </td>
+            </tr>
+          </table>
+        <% else %>
+          <table>
+            <tr>
+              <td>
+                <button class="btn grey">Target Self</button>
+              </td>
+              <td>
+                <button class="btn grey">Target Opponent</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn grey">Attack</button>
+              </td>
+              <td>
+                <button class="btn grey">Defend</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn grey">Scan</button>
+              </td>
+            </tr>
+          </table>
         <% end %>
 
-        <p id="p2_avatar"><%= @command.player2.name %>: <%= @command.player2.curr_hp %>/<%= @command.player2.max_hp %></p>
-
-        <form action="/p2_target">
-          <input type="submit" id="p2_tgt_slf" value="Target Self">
-          <input type="submit" id="p2_tgt_opp" value="Target Opponent">
-        </form>
-
-        <form action="/p2_attack">
-            <input type="submit" id="p2_atk" value="Attack">
-          </form>
-
-        <form action="/p2_defend">
-          <input type="submit" id="p2_def" value="Defend">
-        </form>
-
-        <form action="/p2_magic">
-          <input type="submit" id="p2_mag_scan" value="Scan">
-          <input type="submit" id="blk_mag" value="Black Magic">
-        </form>
       </div>
     </div>
 
   </body>
 </html>
-
-<script>
-function magicScan() {
-  document.getElementById("battle_message_text").innerHTML = "<%= @command.player2.name %> HP: <%= @command.player2.curr_hp %> / <%= @command.player2.max_hp %>";
-}
-
-function atk() {
-  return Math.floor(Math.random() * 20)
-}
-</script>

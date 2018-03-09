@@ -9,30 +9,34 @@ end
 
 def p1_completes_atk
   click_on 'p1_atk'
-  click_on 'Continue'
-  click_on 'Continue'
+  click_on 'message_ok'
 end
 
 def p2_completes_atk
   click_on 'p2_atk'
-  click_on 'Continue'
-  click_on 'Continue'
+  click_on 'message_ok'
+end
+
+def p1_completes_def
+  click_on 'p1_def'
+  click_on 'message_ok'
+end
+
+def p2_completes_def
+  click_on 'p2_def'
+  click_on 'message_ok'
 end
 
 def p1_atk_p2_def
   click_on 'p1_atk'
-  click_on 'Continue'
-  click_on 'Continue'
+  click_on 'message_ok'
   click_on 'p2_def'
-  click_on 'Continue'
-  click_on 'Continue'
+  click_on 'message_ok'
 end
 
 def p2_atk_p1_def
   click_on 'p1_def'
-  click_on 'Continue'
-  click_on 'Continue'
+  click_on 'message_ok'
   click_on 'p2_atk'
-  click_on 'Continue'
-  click_on 'Continue'
+  click_on 'message_ok'
 end
