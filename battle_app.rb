@@ -119,5 +119,7 @@ set :session_secret, 'My Secret Session'
     erb(:victory)
   end
 
+  p  app_file 
+
   run! if app_file == $0
 end

@@ -1,160 +1,11 @@
-<style>
-  h1 {
-    text-align: center;
-    color: red;
-    text-shadow: 3px 2px grey;
-    font-size: 50px;
-  }
-  h2 {
-    text-align: center;
-    color: blue;
-    font-size: 35px;
-  }
-  body {
-    margin: 10px;
-  }
-  td, th {
-    text-align: left;
-  }
-  form {
-    padding: 0px;
-    margin: 0px;
-  }
-  .icon {
-    width: 30px;
-    height: 30px;
-    display: inline;
-  }
-  .img_center {
-    display: inline-block;
-    margin-left: auto;
-    margin-right: auto;
-    height: 500px;
-    padding: 10px;
-  }
-  .center {
-    text-align: center;
-  }
-  .right_align {
-    text-align: right;
-  }
-  .message_box {
-    border-radius: 5px;
-    border-style: outset;
-    width: 70%;
-    padding: 10px;
-    position: relative;
-    margin-left: 15%
-  }
-  .game_space {
-    height: 500px;
-    width: 100%;
-    text-align: center;
-    display: inline-block;
-  }
-  .container{
-    display: flex;
-    margin-top: 50px;
-  }
-  .p1_box {
-    border-radius: 5px;
-    border-style: outset;
-    background-color: white;
-    width: 37.5%;
-    padding: 10px;
-    margin-right: 10%;
-  }
-  .p2_box {
-    border-radius: 5px;
-    border-style: outset;
-    background-color: white;
-    padding: 10px;
-    margin-left: 10%;
-    flex-grow: 1;
-  }
-  .lr_spacing {
-    padding-left: 10px;
-    padding-right: 10px;
-  }
-  .icon_spacing {
-    padding-left: 10px;
-    padding-right: 10px;
-    width: 30px;
-  }
-  .btn {
-    border-radius: 5px;
-    border: 2px solid black;
-    background-color: white;
-    color: black;
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  .green {
-    border-color: #4CAF50;
-    color: green;
-  }
-  .green:hover {
-    background-color: #4CAF50;
-    color: white;
-  }
-  .blue {
-    border-color: #2196F3;
-    color: dodgerblue
-  }
-  .blue:hover {
-    background: #2196F3;
-    color: white;
-  }
-  .purple {
-    border-color: #2b1b5c;
-    color: #21255e;
-  }
-  .purple:hover {
-    background: #2b1b5c;
-    color: white;
-  }
-  .red {
-    border-color: #f44336;
-    color: red
-  }
-  .red:hover {
-    background: #f44336;
-    color: white;
-  }
-  .grey {
-    border-color: #e7e7e7;
-    color: black;
-  }
-  .grey:hover {
-    background: #e7e7e7;
-  }
-  .loader {
-    border: 5px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 5px solid red;
-    width: 15px;
-    height: 15px;
-    padding: 2.5px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
-  }
-  /* Safari */
-  @-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
-  }
-  @keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-  }
-</style>
-
 <html>
-  <body>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Encode+Sans|Nova+Slim|Bilbo+Swash+Caps|Gurajada|Exo:400i" rel="stylesheet">
+</head>
 
-    <h1> MATCH </h1>
-
+<body id="batt_screen">
+  <h1 class="title">Heavenly  Strike</h1>
 
     <div class="message_box">
       <table style="width:100%">
@@ -177,10 +28,9 @@
       </table>
 
     </div>
-    <br />
 
     <div class="game_space">
-        <img class="img_center" src = 'https://image.ibb.co/mz5hyS/FFXIV_Black_Mage.png'>
+        <img class="img_center" id="p1_avatar" src = 'https://image.ibb.co/mz5hyS/FFXIV_Black_Mage.png'>
         <img class="img_center" src = 'https://image.ibb.co/kZcvJS/Dragoon_Artwork_XIV.png'>
     </div>
 
@@ -209,12 +59,12 @@
             <tr>
               <td>
                 <form action="/target_self">
-                  <button class="btn blue" id="p1_tgt_self">Target Self</button>
+                  <button class="btn blue batt_btn" id="p1_tgt_self">Target Self</button>
                 </form>
               </td>
               <td>
                 <form action="/target_opponent">
-                  <button class="btn blue" id="p1_tgt_opp">Target Opponent</button>
+                  <button class="btn blue batt_btn" id="p1_tgt_opp">Target Opponent</button>
                 </form>
               </td>
             </tr>
@@ -222,12 +72,12 @@
             <tr>
               <td>
                 <form action="/phys_attack">
-                  <button class="btn red" id="p1_atk" autofocus>Attack</button>
+                  <button class="btn red batt_btn" id="p1_atk" autofocus>Attack</button>
                 </form>
               </td>
               <td>
                 <form action="/defend_self">
-                  <button class="btn red" id="p1_def">Defend</button>
+                  <button class="btn red batt_btn" id="p1_def">Defend</button>
                 </form>
               </td>
             </tr>
@@ -235,22 +85,22 @@
             <tr>
               <td>
                 <form action="/use_special_buff">
-                  <button class="btn green" id="p1_wmg_scan" name="spc_buff" value="wmg_scan">Scan</button>
+                  <button class="btn green batt_btn" id="p1_wmg_scan" name="spc_buff" value="wmg_scan">Scan</button>
                 </form>
               </td>
               <td>
                 <form action="/use_special_heal">
-                  <button class="btn green" id="p1_wmg_cure" name="spc_heal" value="wmg_cure">Cure</button>
+                  <button class="btn green batt_btn" id="p1_wmg_cure" name="spc_heal" value="wmg_cure">Cure</button>
                 </form>
               </td>
             </tr>
             <tr>
               <form action="/use_special_atk">
                 <td>
-                  <button class="btn purple" id="p1_bmg_fire" name="spc_atk" value="bmg_fire">Fire</button>
+                  <button class="btn purple batt_btn" id="p1_bmg_fire" name="spc_atk" value="bmg_fire">Fire</button>
                 </td>
                 <td>
-                  <button class="btn purple" id="p1_bmg_ice" name="spc_atk" value="bmg_ice">Ice</button>
+                  <button class="btn purple batt_btn" id="p1_bmg_ice" name="spc_atk" value="bmg_ice">Ice</button>
                 </td>
               </form>
             </tr>
@@ -259,37 +109,37 @@
           <table>
             <tr>
               <td>
-                <button class="btn grey">Target Self</button>
+                <button class="btn grey batt_btn">Target Self</button>
               </td>
               <td>
-                <button class="btn grey">Target Opponent</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <button class="btn grey">Attack</button>
-              </td>
-              <td>
-                <button class="btn grey">Defend</button>
+                <button class="btn grey batt_btn">Target Opponent</button>
               </td>
             </tr>
 
             <tr>
               <td>
-                <button class="btn grey">Scan</button>
+                <button class="btn grey batt_btn">Attack</button>
               </td>
               <td>
-                <button class="btn grey">Heal</button>
+                <button class="btn grey batt_btn">Defend</button>
               </td>
             </tr>
 
             <tr>
               <td>
-                <button class="btn grey">Fire</button>
+                <button class="btn grey batt_btn">Scan</button>
               </td>
               <td>
-                <button class="btn grey">Ice</button>
+                <button class="btn grey batt_btn">Heal</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn grey batt_btn">Fire</button>
+              </td>
+              <td>
+                <button class="btn grey batt_btn">Ice</button>
               </td>
             </tr>
           </table>
@@ -322,12 +172,12 @@
             <tr>
               <td>
                 <form action="/target_self">
-                  <button class="btn blue" id="p2_tgt_self">Target Self</button>
+                  <button class="btn blue batt_btn" id="p2_tgt_self">Target Self</button>
                 </form>
               </td>
               <td>
                 <form action="/target_opponent">
-                  <button class="btn blue" id="p2_tgt_opp">Target Opponent</button>
+                  <button class="btn blue batt_btn" id="p2_tgt_opp">Target Opponent</button>
                 </form>
               </td>
             </tr>
@@ -335,12 +185,12 @@
             <tr>
               <td>
                 <form action="/phys_attack">
-                  <button class="btn red" id="p2_atk" autofocus>Attack</button>
+                  <button class="btn red batt_btn" id="p2_atk" autofocus>Attack</button>
                 </form>
               </td>
               <td>
                 <form action="/defend_self">
-                  <button class="btn red" id="p2_def">Defend</button>
+                  <button class="btn red batt_btn" id="p2_def">Defend</button>
                 </form>
               </td>
             </tr>
@@ -348,22 +198,22 @@
             <tr>
               <td>
                 <form action="/use_special_buff">
-                  <button class="btn green" id="p2_wmg_scan" name="spc_buff" value="wmg_scan">Scan</button>
+                  <button class="btn green batt_btn" id="p2_wmg_scan" name="spc_buff" value="wmg_scan">Scan</button>
                 </form>
               </td>
               <td>
                 <form action="/use_special_heal">
-                  <button class="btn green" id="p2_teq_recov" name="spc_heal" value="teq_recov">Recover</button>
+                  <button class="btn green batt_btn" id="p2_teq_recov" name="spc_heal" value="teq_recov">Recover</button>
                 </form>
               </td>
             </tr>
             <tr>
               <form action="/use_special_atk">
                 <td>
-                  <button class="btn purple" id="p2_teq_tr_thr" name="spc_atk" value="teq_tr_thr">True Thrust</button>
+                  <button class="btn purple batt_btn" id="p2_teq_tr_thr" name="spc_atk" value="teq_tr_thr">True Thrust</button>
                 </td>
                 <td>
-                    <button class="btn purple" id="p2_teq_jump" name="spc_atk" value="teq_jump">Jump</button>
+                    <button class="btn purple batt_btn" id="p2_teq_jump" name="spc_atk" value="teq_jump">Jump</button>
                 </td>
               </form>
             </tr>
@@ -372,37 +222,37 @@
           <table>
             <tr>
               <td>
-                <button class="btn grey">Target Self</button>
+                <button class="btn grey batt_btn">Target Self</button>
               </td>
               <td>
-                <button class="btn grey">Target Opponent</button>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <button class="btn grey">Attack</button>
-              </td>
-              <td>
-                <button class="btn grey">Defend</button>
+                <button class="btn grey batt_btn">Target Opponent</button>
               </td>
             </tr>
 
             <tr>
               <td>
-                <button class="btn grey">Scan</button>
+                <button class="btn grey batt_btn">Attack</button>
               </td>
               <td>
-                <button class="btn grey">Recover</button>
+                <button class="btn grey batt_btn">Defend</button>
               </td>
             </tr>
 
             <tr>
               <td>
-                <button class="btn grey">True Thrust</button>
+                <button class="btn grey batt_btn">Scan</button>
               </td>
               <td>
-                <button class="btn grey">Jump</button>
+                <button class="btn grey batt_btn">Recover</button>
+              </td>
+            </tr>
+
+            <tr>
+              <td>
+                <button class="btn grey batt_btn">True Thrust</button>
+              </td>
+              <td>
+                <button class="btn grey batt_btn">Jump</button>
               </td>
             </tr>
           </table>

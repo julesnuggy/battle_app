@@ -1,0 +1,253 @@
+body {
+  background-color: black;
+}
+
+body#char_screen{
+  background-color: #0c457d;
+}
+
+body#batt_screen{
+  background: url(https://image.ibb.co/e5C57n/FFXIV_behemoth_ice.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+img {
+  text-align: center;
+  height: 60%;
+  padding: 10px
+}
+
+img#p1_avatar {
+  margin-right: 300px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 70px
+}
+
+h2 {
+  text-align: center;
+  color: #222d5b;
+  text-shadow: 3px 2px #fdfeff;
+  font-size: 35px
+}
+
+td {
+  padding: 0px 10px 0px 10px;
+}
+
+td, th {
+  text-align: left;
+}
+form {
+  padding: 0px;
+  margin: 0px;
+}
+
+.title {
+  font-family: 'Bilbo Swash Caps', cursive;
+  color: #fdfeff;
+  text-shadow: 3px 2px #5b7daa;
+  margin-bottom: 0px;
+  letter-spacing: 3px;
+}
+
+.subheader {
+  font-family: 'Encode Sans', sans-serif;
+  color: #fdfeff;
+  text-shadow: 3px 2px #5b7daa;
+  margin-bottom: 0px;
+  letter-spacing: 3px;
+}
+
+.ice {
+  color: 	#edffff;
+  font-family: 'Gurajada', serif;
+  font-size: 30px;
+}
+
+.title_img {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 70%;
+}
+
+.center {
+  margin: auto;
+  text-align: center;
+}
+
+.half-width {
+  width: 50%;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+  display: inline;
+  padding: 0px;
+}
+.img_center {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 100%;
+  padding: 10px;
+}
+
+.right_align {
+  text-align: right;
+}
+.message_box {
+  background-color:	#cad6df;
+  border-color: #1e72bf
+  border-radius: 5px;
+  border-style: outset;
+  width: 70%;
+  padding: 10px;
+  position: relative;
+  margin-left: 15%
+}
+.game_space {
+  height: 50%;
+  width: 100%;
+  text-align: center;
+  display: inline-block;
+}
+.container{
+  display: flex;
+  margin-top: 20px;
+}
+.p1_box {
+  border-radius: 5px;
+  border-style: outset;
+  background-color: #dbe4ee;
+  height: 160px;
+  width: 37.5%;
+  padding: 10px;
+  margin-right: 10%;
+}
+.p2_box {
+  border-radius: 5px;
+  border-style: outset;
+  background-color: #dbe4ee;
+  padding: 10px;
+  margin-left: 10%;
+  flex-grow: 1;
+}
+.lr_spacing {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.icon_spacing {
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 30px;
+}
+
+.flip {
+  -webkit-transform: scaleX(-1);
+  transform: scaleX(-1);
+}
+
+
+
+.btn {
+  border-radius: 5px;
+  border: 2px solid black;
+  background-color: white;
+  color: black;
+  padding: 5px 5px;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.batt_btn {
+  width: 110px;
+}
+
+.ice_blue {
+  border-color: #d6e6f3;
+  background: #12111e;
+  color: white;
+}
+
+.ice_blue:hover {
+  border-color: #d6e6f3;
+  background: #a4d4ff;
+  color: white;
+}
+
+.dk_blue {
+  border-color: #9dabc1;
+  background: #2f3972;
+  color: white;
+}
+
+.dk_blue:hover {
+  border-color: #9dabc1;
+  background: #091e36;
+  color: white;
+}
+
+.green {
+  border-color: #4CAF50;
+  color: green;
+}
+.green:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+.blue {
+  border-color: #2196F3;
+  color: dodgerblue
+}
+.blue:hover {
+  background: #2196F3;
+  color: white;
+}
+.purple {
+  border-color: #2b1b5c;
+  color: #21255e;
+}
+.purple:hover {
+  background: #2b1b5c;
+  color: white;
+}
+.red {
+  border-color: #f44336;
+  color: red
+}
+.red:hover {
+  background: #f44336;
+  color: white;
+}
+.grey {
+  border-color: #8a959b;
+  color: black;
+}
+.grey:hover {
+  background: #8a959b;
+}
+.loader {
+  border: 5px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 5px solid red;
+  width: 15px;
+  height: 15px;
+  padding: 2.5px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}

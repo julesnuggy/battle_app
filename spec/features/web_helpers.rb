@@ -1,18 +1,16 @@
 def sign_in_and_play
   visit '/'
-  click_link 'new_game'
   fill_in 'player1_name', with: 'Renzokuken'
   fill_in 'player2_name', with: 'Zantetsuken'
-  click_button 'Continue'
+  click_button 'Start New Game'
   click_button 'Start Match'
 end
 
 def play_vs_comp
   visit '/'
-  click_link 'new_game'
   fill_in 'player1_name', with: 'Renzokuken'
   fill_in 'player2_name', with: 'Computer'
-  click_button 'Continue'
+  click_button 'Start New Game'
   click_button 'Start Match'
 end
 

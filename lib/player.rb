@@ -1,7 +1,8 @@
 require_relative './game.rb'
 
 class Player
-  attr_reader :name, :max_hp, :curr_hp, :damage, :defend, :heal, :loser
+  attr_reader :name, :max_hp, :curr_hp, :lvl, :atk, :def, :mag, :magdef
+  attr_reader :damage, :defend, :heal, :loser
 
   def initialize(name)
     @name = name

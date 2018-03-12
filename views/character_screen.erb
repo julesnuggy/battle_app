@@ -1,48 +1,16 @@
-<style>
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Encode+Sans|Nova+Slim|Bilbo+Swash+Caps|Gurajada|Exo:400i" rel="stylesheet">
+</head>
 
-  h1 {
-    text-align: center;
-    color: red;
-    text-shadow: 3px 2px grey;
-    font-size: 50px;
-  }
-
-  h2 {
-    text-align: center;
-    color: blue;
-    font-size: 35px;
-  }
-
-  img {
-    height: 60%;
-    padding: 10px;
-  }
-
-  .center {
-    text-align: center;
-  }
-
-  .half-width {
-    width: 50%;
-  }
-
-  .flip {
-    -webkit-transform: scaleX(-1);
-    transform: scaleX(-1);
-  }
-</style>
-
-
-<body>
-  <h1>
-    PREPARE FOR THE NEXT BATTLE!
-  </h1>
+<body id="char_screen">
+  <h1 class="title">Heavenly  Strike</h1>
 
   <% if @game.player1.name && @game.player2.name %>
-    <h2><%= @game.player1.name %> VS <%= @game.player2.name %></h2>
+    <h2 class="subheader"><%= @game.player1.name %> VS <%= @game.player2.name %></h2>
   <% end %>
 
-  <div  class='center'>
+  <div class='center'>
     <span>
       <img src = 'https://image.ibb.co/mz5hyS/FFXIV_Black_Mage.png'>
       <img src = 'https://image.ibb.co/kZcvJS/Dragoon_Artwork_XIV.png'>
@@ -52,11 +20,11 @@
   <div class='center'>
     <% if @game.player2.name == "Computer" %>
       <form action='/comp_battle' method='get'>
-        <input type='submit' value='Start Match'>
+        <button type="submit" class="btn dk_blue" id="start_match">Start Match</button>
       </form>
     <% else %>
       <form action='/battle' method='get'>
-        <input type='submit' value='Start Match'>
+        <button type="submit" class="btn dk_blue" id="start_match">Start Match</button>
       </form>
     <% end %>
   </div>

@@ -1,43 +1,29 @@
-<style>
-  img {
-    text-align: center;
-    margin: auto;
-  }
+<head>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css?family=Nova+Slim|Bilbo+Swash+Caps|Gurajada|Exo:400i" rel="stylesheet">
+</head>
 
-  h1 {
-    text-align: center;
-    color: red;
-    text-shadow: 3px 2px grey;
-    font-size: 50px
-  }
+<body>
+  <h1 class="title">Heavenly  Strike</h1>
+  <div class="center">
+    <img class="title_img" src="https://image.ibb.co/h9L2k7/blizzaga_by_liclockwork_d35gmmx.jpg">
 
-  h2 {
-    text-align: center;
-    color: blue;
-    text-shadow: 3px 2px grey
-    font-size: 35px
-  }
-
-  .button {
-      background-color: #4CAF50;
-      border: none;
-      color: white;
-      padding: 15px 32px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 16px;
-      cursor: pointer;
-  }
-
-  .center {
-    margin: auto;
-    text-align: center;
-  }
-
-</style>
-
-<h1>WELCOME TO FINAL FANTASY CLASH</h1>
-<div class="center">
-  <a href="/start-new-game" class="button" id="new_game">New Game</a>
-</div>
+    <form action="/store-names" method="post">
+      <table class="center" id="setup_table">
+          <tr>
+            <td>
+              <label for="player1_name" class="ice">Player 1 Name:</label>
+              <input type="text" id="p1_name_box" name="player1_name">
+            </td>
+            <td>
+              <label for="player2_name" class="ice">Player 2 Name:</label>
+              <input type="text" id="p2_name_box" name="player2_name">
+            </td>
+            <td>
+              <button type="submit" class="btn ice_blue" id="submit_names">Start New Game</button>
+            </td>
+        </tr>
+      </table>
+    </form>
+  </div>
+</body>
