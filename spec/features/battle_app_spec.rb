@@ -1,4 +1,4 @@
-require '~/Documents/Coding/MA/battle/battle_app.rb'
+require_relative '../../battle_app.rb'
 
 describe Battle do
 
