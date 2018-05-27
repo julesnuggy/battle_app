@@ -15,7 +15,7 @@ class Player
     @attack = rand(1..10) * 3
 
     if defend == true
-      @defence = (rand(0.1..1) * @attack).round(half: :up)
+      @defence = (rand(0.1..0.5) * @attack).round(half: :up)
     else
       @defence = 0
     end
