@@ -49,7 +49,7 @@
               <p><%= @game.player1.name %></p>
             </td>
             <th class="lr_spacing">
-              <p><%= @game.player1.curr_hp %>/<%= @game.player1.max_hp %></p>
+              <p id="p1_hp"><%= @game.player1.curr_hp %>/<%= @game.player1.max_hp %></p>
             </td>
           </tr>
         </table>
@@ -162,7 +162,7 @@
               <p><%= @game.player2.name %></p>
             </td>
             <th class="lr_spacing">
-              <p><%= @game.player2.curr_hp %>/<%= @game.player2.max_hp %></p>
+              <p id="p2_hp"><%= @game.player2.curr_hp %>/<%= @game.player2.max_hp %></p>
             </td>
           </tr>
         </table>
